@@ -316,14 +316,14 @@ export default function TrackShipmentsPage() {
                         </div>
                         <Progress
                           value={shipment.progress}
-                          className="h-1.5 bg-slate-700"
-                          indicatorClassName={
+                         
+                          className={`h-1.5 bg-slate-700 ${
                             shipment.status === "Delayed"
                               ? "bg-red-500"
                               : shipment.status === "Delivered"
                                 ? "bg-green-500"
                                 : "bg-gradient-to-r from-cyan-500 to-blue-600"
-                          }
+                          }`}
                         />
                       </div>
 
@@ -432,14 +432,13 @@ export default function TrackShipmentsPage() {
                 </div>
                 <Progress
                   value={selectedShipment.progress}
-                  className="h-2 bg-slate-700"
-                  indicatorClassName={
+                                    className={`h-2 bg-slate-700 ${
                     selectedShipment.status === "Delayed"
                       ? "bg-red-500"
                       : selectedShipment.status === "Delivered"
                         ? "bg-green-500"
                         : "bg-gradient-to-r from-cyan-500 to-blue-600"
-                  }
+                  }`}
                 />
                 <p className="text-xs text-slate-400 flex items-center">
                   <Clock className="h-3 w-3 mr-1" />
