@@ -773,15 +773,19 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
 
   return (
     <LanguageContext.Provider
-      value={{  // This syntax was incorrect
+      value={{
         language,
         setLanguage,
         t,
+        autoDetect,
+        setAutoDetect: updateAutoDetect,
+        availableLanguages,
       }}
     >
       {children}
     </LanguageContext.Provider>
   )
+}
 
 // Hook to use language context
 export function useLanguage() {
@@ -793,4 +797,3 @@ export function useLanguage() {
 
   return context
 }
-

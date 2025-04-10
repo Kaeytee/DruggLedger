@@ -11,4 +11,3 @@ export function GlassContainer({ className, ...props }: GlassContainerProps) {
     />
   )
 }
-

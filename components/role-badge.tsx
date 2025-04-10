@@ -44,4 +44,3 @@ export function RoleBadge({ role }: RoleBadgeProps) {
     </Badge>
   )
 }
-

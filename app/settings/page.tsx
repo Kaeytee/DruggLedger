@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { GlassContainer } from "@/components/glass-container"
 import { Button } from "@/components/ui/button"
@@ -9,32 +9,18 @@ import { Label } from "@/components/ui/label"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useToast } from "@/components/ui/use-toast"
-import { useLanguage, type Language } from "@/lib/i18n"
+import { useLanguage, type Language } from "@/lib/i18n/index"
 import { AvatarSelector } from "@/components/avatar-selector"
-import { avatars, type Avatar as AvatarType } from "@/lib/avatars"
+import type { Avatar as AvatarType } from "@/lib/avatars"
+import { useAvatar } from "@/lib/avatar-context"
 
 export default function SettingsPage() {
   const { toast } = useToast()
-  const { language, setLanguage, autoDetect, setAutoDetect, t, availableLanguages } = useLanguage()
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>(language || 'en')
+  const { language, setLanguage, autoDetect, setAutoDetect, t, availableLanguages = {} } = useLanguage()
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(language)
   const [autoDetectEnabled, setAutoDetectEnabled] = useState(autoDetect)
-  
-  // Fix: Check if avatars array exists and has elements before accessing [0]
-  const defaultAvatar: AvatarType = {
-    id: 'default',
-    avatarUrl: '/default-avatar.png',
-    nickname: 'Default'
-  }
-  
-  const [selectedAvatar, setSelectedAvatar] = useState<AvatarType>(
-    avatars && avatars.length > 0 ? avatars[0] : defaultAvatar
-  )
-
-  useEffect(() => {
-    if (language) {
-      setSelectedLanguage(language)
-    }
-  }, [language])
+  const { currentAvatar, setCurrentAvatar } = useAvatar()
+  const [selectedAvatar, setSelectedAvatar] = useState<AvatarType>(currentAvatar)
 
   const handleSaveLanguageSettings = () => {
     if (autoDetectEnabled !== autoDetect) {
@@ -50,13 +36,10 @@ export default function SettingsPage() {
       description: t("languageSettingsSaved"),
     })
   }
-  
-  function handleAvatarChange(avatar: AvatarType): void {
+
+  const handleAvatarChange = (avatar: AvatarType) => {
     setSelectedAvatar(avatar)
-    toast({
-      title: t("avatarUpdated"),
-      description: t("avatarChangeSuccess").replace("{nickname}", avatar.nickname),
-    })
+    setCurrentAvatar(avatar)
   }
 
   return (
@@ -152,29 +135,16 @@ export default function SettingsPage() {
               </div>
 
               <div className="flex flex-col items-center space-y-4">
-                {/* Fix: Check if AvatarSelector component exists before rendering */}
-                {typeof AvatarSelector !== 'undefined' ? (
-                  <AvatarSelector
-                    selectedAvatarId={selectedAvatar.id}
-                    onAvatarChange={handleAvatarChange}
-                    className="mx-auto"
-                  />
-                ) : (
-                  <div className="text-white">Avatar selector unavailable</div>
-                )}
+                <AvatarSelector
+                  selectedAvatarId={selectedAvatar.id}
+                  onAvatarChange={handleAvatarChange}
+                  className="mx-auto"
+                  size="xl"
+                />
                 <div className="text-center">
                   <h3 className="text-lg font-medium text-white">{selectedAvatar.nickname}</h3>
                   <p className="text-sm text-slate-400">{t("currentlySelected")}</p>
                 </div>
-              </div>
-
-              <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-                <h3 className="font-medium text-white mb-2">{t("aboutAvatars")}</h3>
-                <ul className="space-y-2 text-sm text-slate-300">
-                  <li>• {t("avatarInfo1")}</li>
-                  <li>• {t("avatarInfo2")}</li>
-                  <li>• {t("avatarInfo3")}</li>
-                </ul>
               </div>
             </div>
           </GlassContainer>
@@ -202,7 +172,6 @@ export default function SettingsPage() {
                     onValueChange={(value) => setSelectedLanguage(value as Language)}
                     className="grid grid-cols-1 md:grid-cols-2 gap-2"
                   >
-                    {/* Fix: Check if availableLanguages exists before mapping */}
                     {availableLanguages && Object.entries(availableLanguages).map(([code, name]) => (
                       <div
                         key={code}
@@ -210,7 +179,7 @@ export default function SettingsPage() {
                       >
                         <RadioGroupItem value={code} id={`lang-${code}`} />
                         <Label htmlFor={`lang-${code}`} className="flex-1 cursor-pointer">
-                          {name}
+                          {name as string}
                         </Label>
                       </div>
                     ))}

@@ -117,7 +117,7 @@ export default function TrackShipmentsPage() {
       shipment.drugName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       shipment.destination.toLowerCase().includes(searchTerm.toLowerCase())
 
-    const matchesStatus = statusFilter ? shipment.status === statusFilter : true
+    const matchesStatus = statusFilter && statusFilter !== "all" ? shipment.status === statusFilter : true
 
     return matchesSearch && matchesStatus
   })
@@ -167,7 +167,7 @@ export default function TrackShipmentsPage() {
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
             <SelectContent className="bg-slate-800 border-slate-700">
-              <SelectItem value="">All Statuses</SelectItem>
+              <SelectItem value="all">All Statuses</SelectItem>
               <SelectItem value="In Transit">In Transit</SelectItem>
               <SelectItem value="Delivered">Delivered</SelectItem>
               <SelectItem value="Preparing">Preparing</SelectItem>
@@ -464,4 +464,3 @@ export default function TrackShipmentsPage() {
     </div>
   )
 }
-

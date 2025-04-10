@@ -15,4 +15,3 @@ export const en = {
   avatarInfo2: "Your avatar is visible to other users in the system",
   avatarInfo3: "You can change your avatar at any time from this page",
 }
-

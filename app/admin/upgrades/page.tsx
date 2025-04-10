@@ -437,4 +437,3 @@ export default function SystemUpgradesPage() {
     </div>
   )
 }
-

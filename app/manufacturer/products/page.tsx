@@ -183,12 +183,15 @@ export default function ProductsPage() {
           />
         </div>
         <div className="flex gap-2 w-full md:w-auto">
-          <Select value={statusFilter || ""} onValueChange={(value) => setStatusFilter(value || null)}>
+          <Select
+            value={statusFilter || "all"}
+            onValueChange={(value) => setStatusFilter(value === "all" ? null : value)}
+          >
             <SelectTrigger className="w-[180px] bg-slate-800/50 border-slate-700">
               <SelectValue placeholder="Filter by status" />
             </SelectTrigger>
             <SelectContent className="bg-slate-800 border-slate-700">
-              <SelectItem value="">All Statuses</SelectItem>
+              <SelectItem value="all">All Statuses</SelectItem>
               <SelectItem value="Active">Active</SelectItem>
               <SelectItem value="Draft">Draft</SelectItem>
               <SelectItem value="Recalled">Recalled</SelectItem>
@@ -548,4 +551,3 @@ export default function ProductsPage() {
     </div>
   )
 }
-

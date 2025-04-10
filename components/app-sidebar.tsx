@@ -42,6 +42,8 @@ import { useToast } from "@/components/ui/use-toast"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 import { useLanguage } from "@/lib/i18n"
+import { useAvatar } from "@/lib/avatar-context"
+import { AvatarSelector } from "@/components/avatar-selector"
 
 export function AppSidebar() {
   const pathname = usePathname()
@@ -51,6 +53,8 @@ export function AppSidebar() {
   const [role, setRole] = useState<string | null>(null)
   const { state, toggleSidebar } = useSidebar()
   const [unreadCount, setUnreadCount] = useState(3) // Mock unread notifications count
+  const { currentAvatar, setCurrentAvatar } = useAvatar()
+  const [profileData, setProfileData] = useState<{ name: string } | null>(null)
 
   // Determine user role based on URL path
   useEffect(() => {
@@ -79,6 +83,18 @@ export function AppSidebar() {
         }
       } else {
         setRole(null)
+      }
+    }
+
+    // Load profile data from localStorage
+    if (typeof window !== "undefined") {
+      const storedProfile = localStorage.getItem("userProfile")
+      if (storedProfile) {
+        try {
+          setProfileData(JSON.parse(storedProfile))
+        } catch (e) {
+          console.error("Failed to parse profile data", e)
+        }
       }
     }
   }, [pathname])
@@ -375,7 +391,19 @@ export function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter>
-        <div className="p-2">
+        <div className="p-2 space-y-2">
+          <div className="flex items-center gap-2 p-2 rounded-md bg-slate-800/50">
+            <AvatarSelector
+              selectedAvatarId={currentAvatar.id}
+              onAvatarChange={setCurrentAvatar}
+              size="sm"
+              showEditOverlay={false}
+            />
+            <div className="flex-1 truncate group-data-[collapsible=icon]:hidden">
+              <p className="text-sm font-medium text-white truncate">{profileData?.name || "User"}</p>
+              <p className="text-xs text-slate-400 truncate">{role ? t(role) : ""}</p>
+            </div>
+          </div>
           <Button
             variant="outline"
             className="w-full justify-start border-slate-700 text-slate-300 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:px-0"
@@ -391,4 +419,3 @@ export function AppSidebar() {
     </Sidebar>
   )
 }
-

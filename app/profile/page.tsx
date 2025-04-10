@@ -29,8 +29,9 @@ import {
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { AvatarSelector } from "@/components/avatar-selector"
-import { avatars, type Avatar as AvatarType } from "@/lib/avatars"
+import type { Avatar as AvatarType } from "@/lib/avatars"
 import { useLanguage } from "@/lib/i18n"
+import { useAvatar } from "@/lib/avatar-context"
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false)
@@ -38,7 +39,8 @@ export default function ProfilePage() {
   const [showPassword, setShowPassword] = useState(false)
   const { toast } = useToast()
   const { t } = useLanguage()
-  const [selectedAvatar, setSelectedAvatar] = useState<AvatarType>(avatars[0])
+  const { currentAvatar, setCurrentAvatar } = useAvatar()
+  const [selectedAvatar, setSelectedAvatar] = useState<AvatarType>(currentAvatar)
 
   const [profileData, setProfileData] = useState({
     name: "John Doe",
@@ -105,6 +107,18 @@ export default function ProfilePage() {
   const handleSaveProfile = () => {
     setIsSaving(true)
 
+    // Save profile data to localStorage
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "userProfile",
+        JSON.stringify({
+          name: profileData.name,
+          email: profileData.email,
+          role: profileData.role,
+        }),
+      )
+    }
+
     // Simulate API call delay
     setTimeout(() => {
       toast({
@@ -166,10 +180,7 @@ export default function ProfilePage() {
 
   const handleAvatarChange = (avatar: AvatarType) => {
     setSelectedAvatar(avatar)
-    toast({
-      title: t("avatarUpdated"),
-      description: t("avatarUpdateSuccess"),
-    })
+    setCurrentAvatar(avatar)
   }
 
   return (
@@ -509,7 +520,7 @@ export default function ProfilePage() {
 
         <GlassContainer>
           <div className="flex flex-col items-center text-center space-y-4">
-            <AvatarSelector selectedAvatarId={selectedAvatar.id} onAvatarChange={handleAvatarChange} />
+            <AvatarSelector selectedAvatarId={selectedAvatar.id} onAvatarChange={handleAvatarChange} size="lg" />
 
             <div>
               <h2 className="text-xl font-semibold text-white">{profileData.name}</h2>
@@ -581,4 +592,3 @@ export default function ProfilePage() {
     </div>
   )
 }
-

@@ -42,4 +42,3 @@ CardFooter.displayName = "CardFooter"
 export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {}
-
