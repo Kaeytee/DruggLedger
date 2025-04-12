@@ -102,7 +102,7 @@ export default function ReportIssuePage() {
               <label className="text-sm font-medium text-slate-300">Product ID</label>
               <div className="flex gap-2">
                 <Input
-                  placeholder="Enter product ID (e.g., DRG-2023-001)"
+                  placeholder="Enter product ID (e.g., DRG-2025-001)"
                   value={formData.drugId}
                   onChange={(e) => handleChange("drugId", e.target.value)}
                   required

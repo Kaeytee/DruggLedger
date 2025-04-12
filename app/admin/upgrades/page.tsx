@@ -39,7 +39,7 @@ export default function SystemUpgradesPage() {
   const [systemInfo] = useState({
     currentVersion: "1.2.3",
     latestVersion: "1.3.0",
-    lastUpgraded: "2023-10-15",
+    lastUpgraded: "2025-10-15",
     status: "Stable",
     components: [
       {
@@ -85,17 +85,17 @@ export default function SystemUpgradesPage() {
     ],
     scheduledMaintenance: [
       {
-        id: "MAINT-2023-001",
+        id: "MAINT-2025-001",
         title: "Database Optimization",
-        date: "2023-11-20",
+        date: "2025-11-20",
         time: "02:00 - 04:00 UTC",
         status: "Scheduled",
         description: "Routine database maintenance and optimization to improve performance.",
       },
       {
-        id: "MAINT-2023-002",
+        id: "MAINT-2025-002",
         title: "Security Patch Deployment",
-        date: "2023-11-25",
+        date: "2025-11-25",
         time: "01:00 - 03:00 UTC",
         status: "Scheduled",
         description: "Deployment of critical security patches to address vulnerabilities.",

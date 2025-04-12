@@ -62,7 +62,7 @@ export default function NotificationsPage() {
     {
       id: "notif-001",
       title: "New Shipment Assigned",
-      message: "Shipment SHP-2023-007 has been assigned to your account.",
+      message: "Shipment SHP-2025-007 has been assigned to your account.",
       timestamp: "2 hours ago",
       type: "shipments",
       priority: "medium",
@@ -76,7 +76,7 @@ export default function NotificationsPage() {
     {
       id: "notif-002",
       title: "Product Verification Complete",
-      message: "Amoxicillin 500mg (DRG-2023-001) has been verified by a regulator.",
+      message: "Amoxicillin 500mg (DRG-2025-001) has been verified by a regulator.",
       timestamp: "5 hours ago",
       type: "updates",
       priority: "medium",
@@ -91,7 +91,7 @@ export default function NotificationsPage() {
       id: "notif-003",
       title: "System Maintenance",
       message:
-        "The system will undergo maintenance on Nov 20, 2023 from 2:00 AM to 4:00 AM UTC. Service may be temporarily unavailable during this period.",
+        "The system will undergo maintenance on Nov 20, 2025 from 2:00 AM to 4:00 AM UTC. Service may be temporarily unavailable during this period.",
       timestamp: "1 day ago",
       type: "system",
       priority: "high",
@@ -116,7 +116,7 @@ export default function NotificationsPage() {
     {
       id: "notif-005",
       title: "Product Added to Watchlist",
-      message: "Lisinopril 10mg (DRG-2023-012) has been added to your watchlist.",
+      message: "Lisinopril 10mg (DRG-2025-012) has been added to your watchlist.",
       timestamp: "3 days ago",
       type: "updates",
       priority: "low",
@@ -126,7 +126,7 @@ export default function NotificationsPage() {
     {
       id: "notif-006",
       title: "Shipment Delivered",
-      message: "Shipment SHP-2023-002 has been successfully delivered to its destination.",
+      message: "Shipment SHP-2025-002 has been successfully delivered to its destination.",
       timestamp: "4 days ago",
       type: "shipments",
       priority: "medium",
@@ -136,7 +136,7 @@ export default function NotificationsPage() {
     {
       id: "notif-007",
       title: "Quality Inspection Required",
-      message: "Batch #A2023-45 of Atorvastatin 20mg requires quality inspection before distribution.",
+      message: "Batch #A2025-45 of Atorvastatin 20mg requires quality inspection before distribution.",
       timestamp: "5 days ago",
       type: "alerts",
       priority: "high",
@@ -150,7 +150,7 @@ export default function NotificationsPage() {
     {
       id: "notif-008",
       title: "Analytics Report Ready",
-      message: "Your monthly analytics report for October 2023 is now available for review.",
+      message: "Your monthly analytics report for October 2025 is now available for review.",
       timestamp: "1 week ago",
       type: "updates",
       priority: "low",
@@ -178,7 +178,7 @@ export default function NotificationsPage() {
     {
       id: "notif-010",
       title: "Product Registration Successful",
-      message: "Your product Metformin 850mg has been successfully registered with ID: DRG-2023-003.",
+      message: "Your product Metformin 850mg has been successfully registered with ID: DRG-2025-003.",
       timestamp: "2 weeks ago",
       type: "updates",
       priority: "medium",

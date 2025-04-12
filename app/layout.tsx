@@ -1,25 +1,36 @@
-import type React from "react"
-import { cookies } from "next/headers"
-import { SidebarProvider } from "@/components/ui/sidebar"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/toaster"
-import { AppSidebar } from "@/components/app-sidebar"
-import { SidebarInset } from "@/components/ui/sidebar"
-import { LanguageProvider } from "@/lib/i18n/index"
-// Import the AvatarProvider
-import { AvatarProvider } from "@/lib/avatar-context"
-import "./globals.css"
+"use client";
 
-export default async function RootLayout({
+import { cookies } from "next/headers";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarInset } from "@/components/ui/sidebar";
+import { LanguageProvider } from "@/lib/i18n";
+import { AvatarProvider } from "@/lib/avatar-context";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SuiClientProvider, WalletProvider } from '@mysten/dapp-kit';
+import { getFullnodeUrl } from '@mysten/sui/client';
+import '@mysten/dapp-kit/dist/index.css';
+import "./globals.css";
+
+// Create QueryClient instance outside component
+const queryClient = new QueryClient();
+
+// Define networks config outside component
+const networks = {
+  devnet: { url: getFullnodeUrl('devnet') },
+  mainnet: { url: getFullnodeUrl('mainnet') },
+};
+
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  // Get the sidebar state from cookies for SSR
-  const cookieStore = await cookies()
-  const defaultOpen = cookieStore.get("sidebar:state")?.value !== "false"
+  // Remove the async and direct cookie access
+  // We'll need to handle this differently in a client component
 
-  // Update the return statement to include AvatarProvider
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -30,26 +41,26 @@ export default async function RootLayout({
       </head>
       <body className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-slate-50">
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <LanguageProvider>
-            <AvatarProvider>
-              <SidebarProvider defaultOpen={defaultOpen}>
-                <AppSidebar />
-                <SidebarInset className="bg-transparent">
-                  <main className="container mx-auto p-4 md:p-6">{children}</main>
-                </SidebarInset>
-              </SidebarProvider>
-              <Toaster />
-            </AvatarProvider>
-          </LanguageProvider>
+          <QueryClientProvider client={queryClient}>
+            <SuiClientProvider networks={networks} defaultNetwork="devnet">
+              <WalletProvider autoConnect>
+                <LanguageProvider>
+                  <AvatarProvider>
+                    <SidebarProvider defaultOpen={true}>
+                      <AppSidebar />
+                      <SidebarInset className="bg-transparent">
+                        <main className="container mx-auto p-4 md:p-6">{children}</main>
+                      </SidebarInset>
+                    </SidebarProvider>
+                    <Toaster />
+                  </AvatarProvider>
+                </LanguageProvider>
+              </WalletProvider>
+            </SuiClientProvider>
+          </QueryClientProvider>
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
 
-
-import './globals.css'
-
-export const metadata = {
-      generator: 'v0.dev'
-    };

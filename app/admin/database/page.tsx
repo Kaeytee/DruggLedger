@@ -72,16 +72,16 @@ export default function DatabasePage() {
       { name: "audit_logs", rows: 1024, size: "48 MB", lastUpdated: "5 minutes ago" },
     ],
     queryResults: [
-      { id: 1, wallet_address: "0x7a3b...21f4", role: "Manufacturer", name: "John Doe", created_at: "2023-10-15" },
-      { id: 2, wallet_address: "0x3f1c...9e82", role: "Distributor", name: "Jane Smith", created_at: "2023-09-22" },
-      { id: 3, wallet_address: "0x8d2e...45c7", role: "Admin", name: "Admin User", created_at: "2023-08-05" },
-      { id: 4, wallet_address: "0x2b5a...76d9", role: "Regulator", name: "Regulatory Body", created_at: "2023-11-01" },
-      { id: 5, wallet_address: "0x9c4f...12e8", role: "Manufacturer", name: "Pharma Corp", created_at: "2023-10-28" },
+      { id: 1, wallet_address: "0x7a3b...21f4", role: "Manufacturer", name: "John Doe", created_at: "2025-10-15" },
+      { id: 2, wallet_address: "0x3f1c...9e82", role: "Distributor", name: "Jane Smith", created_at: "2025-09-22" },
+      { id: 3, wallet_address: "0x8d2e...45c7", role: "Admin", name: "Admin User", created_at: "2025-08-05" },
+      { id: 4, wallet_address: "0x2b5a...76d9", role: "Regulator", name: "Regulatory Body", created_at: "2025-11-01" },
+      { id: 5, wallet_address: "0x9c4f...12e8", role: "Manufacturer", name: "Pharma Corp", created_at: "2025-10-28" },
     ],
     backups: [
-      { name: "Daily Backup", type: "Full", date: "2023-11-12 02:00 UTC", size: "128 MB" },
-      { name: "Weekly Backup", type: "Full", date: "2023-11-10 02:00 UTC", size: "124 MB" },
-      { name: "Manual Backup", type: "Full", date: "2023-11-09 15:30 UTC", size: "126 MB" },
+      { name: "Daily Backup", type: "Full", date: "2025-11-12 02:00 UTC", size: "128 MB" },
+      { name: "Weekly Backup", type: "Full", date: "2025-11-10 02:00 UTC", size: "124 MB" },
+      { name: "Manual Backup", type: "Full", date: "2025-11-09 15:30 UTC", size: "126 MB" },
     ],
     settings: {
       maxConnections: 20,
@@ -708,9 +708,9 @@ export default function DatabasePage() {
                         <SelectValue placeholder="Select backup to restore" />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-700">
-                        <SelectItem value="daily">Daily Backup - 2023-11-12 02:00 UTC</SelectItem>
-                        <SelectItem value="weekly">Weekly Backup - 2023-11-10 02:00 UTC</SelectItem>
-                        <SelectItem value="manual">Manual Backup - 2023-11-09 15:30 UTC</SelectItem>
+                        <SelectItem value="daily">Daily Backup - 2025-11-12 02:00 UTC</SelectItem>
+                        <SelectItem value="weekly">Weekly Backup - 2025-11-10 02:00 UTC</SelectItem>
+                        <SelectItem value="manual">Manual Backup - 2025-11-09 15:30 UTC</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

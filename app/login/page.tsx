@@ -1,12 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { GlassContainer } from "@/components/glass-container"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 import { Loader2, AlertCircle } from "lucide-react"
+import { ConnectButton } from '@mysten/dapp-kit'
+import { useCurrentAccount } from '@mysten/dapp-kit'
 
 // Define wallet addresses for each role
 const WALLET_ROLES: Record<string, string> = {
@@ -26,14 +28,64 @@ export default function LoginPage() {
   const [connectionMethod, setConnectionMethod] = useState<"auto" | "manual">("auto")
   const router = useRouter()
   const { toast } = useToast()
+  
+  // Get the current connected account from Sui
+  const currentAccount = useCurrentAccount()
+  
+  // Update wallet connection state when Sui wallet connects
+  useEffect(() => {
+    if (currentAccount && connectionMethod === "auto") {
+      const suiAddress = currentAccount.address
+      setWalletAddress(suiAddress)
+      setIsConnected(true)
+      
+      toast({
+        title: "Wallet Connected",
+        description: `Connected to ${suiAddress.substring(0, 6)}...${suiAddress.substring(suiAddress.length - 4)}`,
+      })
+      
+      // Detect role based on address
+      detectAndRedirect(suiAddress)
+    }
+  }, [currentAccount])
 
-  // Simulate wallet connection and role detection
+  // Function to detect role and redirect user
+  const detectAndRedirect = (address: string) => {
+    try {
+      // Check if it's one of our predefined addresses
+      const role = WALLET_ROLES[address] || "public"
+
+      // Store the role in localStorage for persistence across page refreshes
+      if (typeof window !== "undefined") {
+        localStorage.setItem("userRole", role)
+      }
+
+      toast({
+        title: "Role Detected",
+        description: `You have been identified as: ${role.charAt(0).toUpperCase() + role.slice(1)}`,
+      })
+
+      // Redirect to the appropriate dashboard
+      setTimeout(() => {
+        router.push(`/${role}/dashboard`)
+      }, 1000)
+    } catch (error) {
+      console.error("Error during role detection:", error)
+      toast({
+        title: "Error Detecting Role",
+        description: "There was a problem detecting your role. Please try again.",
+        variant: "destructive",
+      })
+    }
+  }
+
+  // Simulate wallet connection and role detection for manual mode
   const connectWallet = async () => {
     setError("")
     setIsConnecting(true)
 
     // Determine which address to use
-    const addressToUse = connectionMethod === "manual" ? manualAddress : generateRandomAddress()
+    const addressToUse = manualAddress
 
     // Simulate API call delay
     await new Promise((resolve) => setTimeout(resolve, 1500))
@@ -49,38 +101,8 @@ export default function LoginPage() {
 
     // Detect role based on address
     setTimeout(() => {
-      try {
-        // Check if it's one of our predefined addresses
-        const role = WALLET_ROLES[addressToUse] || "public"
-
-        // Store the role in localStorage for persistence across page refreshes
-        if (typeof window !== "undefined") {
-          localStorage.setItem("userRole", role)
-        }
-
-        toast({
-          title: "Role Detected",
-          description: `You have been identified as: ${role.charAt(0).toUpperCase() + role.slice(1)}`,
-        })
-
-        // Redirect to the appropriate dashboard
-        setTimeout(() => {
-          router.push(`/${role}/dashboard`)
-        }, 1000)
-      } catch (error) {
-        console.error("Error during role detection:", error)
-        toast({
-          title: "Error Detecting Role",
-          description: "There was a problem detecting your role. Please try again.",
-          variant: "destructive",
-        })
-      }
+      detectAndRedirect(addressToUse)
     }, 1000)
-  }
-
-  // Generate a random wallet address
-  const generateRandomAddress = () => {
-    return "0x" + Math.random().toString(16).substring(2, 14)
   }
 
   // Validate manual address
@@ -214,22 +236,29 @@ export default function LoginPage() {
                   </div>
                 )}
 
-                <Button
-                  onClick={connectionMethod === "manual" ? handleManualConnect : connectWallet}
-                  disabled={isConnecting}
-                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-6 rounded-lg text-lg font-medium transition-all hover:scale-105 hover:shadow-[0_0_15px_rgba(0,194,214,0.5)]"
-                >
-                  {isConnecting ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Connecting...
-                    </>
-                  ) : connectionMethod === "manual" ? (
-                    "Connect Manually"
-                  ) : (
-                    "Connect Wallet"
-                  )}
-                </Button>
+                {connectionMethod === "auto" ? (
+                  <div className="flex justify-center">
+                    <div className="transform transition-all hover:scale-105">
+                      <ConnectButton connectText="Connect Sui Wallet" 
+                        className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-6 rounded-lg text-lg font-medium transition-all hover:shadow-[0_0_15px_rgba(0,194,214,0.5)]" />
+                    </div>
+                  </div>
+                ) : (
+                  <Button
+                    onClick={handleManualConnect}
+                    disabled={isConnecting}
+                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-6 rounded-lg text-lg font-medium transition-all hover:scale-105 hover:shadow-[0_0_15px_rgba(0,194,214,0.5)]"
+                  >
+                    {isConnecting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Connecting...
+                      </>
+                    ) : (
+                      "Connect Manually"
+                    )}
+                  </Button>
+                )}
               </div>
             )}
           </div>

@@ -18,29 +18,29 @@ export default function PublicDashboard() {
 
   const [recentVerifications] = useState([
     {
-      id: "DRG-2023-001",
+      id: "DRG-2025-001",
       name: "Amoxicillin 500mg",
       manufacturer: "PharmaCorp Inc.",
       status: "Verified",
-      verificationDate: "2023-11-10",
+      verificationDate: "2025-11-10",
     },
     {
-      id: "DRG-2023-007",
+      id: "DRG-2025-007",
       name: "Atorvastatin 20mg",
       manufacturer: "HealthGen Pharmaceuticals",
       status: "Verified",
-      verificationDate: "2023-11-05",
+      verificationDate: "2025-11-05",
     },
   ])
 
   const [recentIssues] = useState([
     {
-      id: "ISS-2023-001",
-      drugId: "DRG-2023-003",
+      id: "ISS-2025-001",
+      drugId: "DRG-2025-003",
       drugName: "Metformin 850mg",
       description: "Packaging defect reported by multiple distributors",
       status: "Open",
-      date: "2023-10-28",
+      date: "2025-10-28",
     },
   ])
 
@@ -56,12 +56,12 @@ export default function PublicDashboard() {
       if (searchQuery.startsWith("DRG-") || searchQuery.toLowerCase().includes("amox")) {
         setSearchResults([
           {
-            id: "DRG-2023-001",
+            id: "DRG-2025-001",
             name: "Amoxicillin 500mg",
             manufacturer: "PharmaCorp Inc.",
             status: "Verified",
-            verificationDate: "2023-11-10",
-            batchNumber: "BATCH-2023-A45",
+            verificationDate: "2025-11-10",
+            batchNumber: "BATCH-2025-A45",
             expiryDate: "2025-11-10",
           },
         ])
@@ -92,7 +92,7 @@ export default function PublicDashboard() {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
               <Input
-                placeholder="Enter product ID (e.g., DRG-2023-001)"
+                placeholder="Enter product ID (e.g., DRG-2025-001)"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 bg-slate-800/50 border-slate-700"

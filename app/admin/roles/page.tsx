@@ -20,14 +20,14 @@ import { Search, Plus, X } from "lucide-react"
 
 // Mock data for users and their roles
 const initialUsers = [
-  { id: 1, address: "0x7a3b...21f4", role: "Manufacturer", dateAssigned: "2023-10-15" },
-  { id: 2, address: "0x3f1c...9e82", role: "Distributor", dateAssigned: "2023-09-22" },
-  { id: 3, address: "0x8d2e...45c7", role: "Admin", dateAssigned: "2023-08-05" },
-  { id: 4, address: "0x2b5a...76d9", role: "Regulator", dateAssigned: "2023-11-01" },
-  { id: 5, address: "0x9c4f...12e8", role: "Manufacturer", dateAssigned: "2023-10-28" },
-  { id: 6, address: "0x5e2d...78a3", role: "Public", dateAssigned: "2023-11-10" },
-  { id: 7, address: "0x1a7b...34c2", role: "Distributor", dateAssigned: "2023-09-15" },
-  { id: 8, address: "0x6d4e...90f1", role: "Regulator", dateAssigned: "2023-10-05" },
+  { id: 1, address: "0x7a3b...21f4", role: "Manufacturer", dateAssigned: "2025-10-15" },
+  { id: 2, address: "0x3f1c...9e82", role: "Distributor", dateAssigned: "2025-09-22" },
+  { id: 3, address: "0x8d2e...45c7", role: "Admin", dateAssigned: "2025-08-05" },
+  { id: 4, address: "0x2b5a...76d9", role: "Regulator", dateAssigned: "2025-11-01" },
+  { id: 5, address: "0x9c4f...12e8", role: "Manufacturer", dateAssigned: "2025-10-28" },
+  { id: 6, address: "0x5e2d...78a3", role: "Public", dateAssigned: "2025-11-10" },
+  { id: 7, address: "0x1a7b...34c2", role: "Distributor", dateAssigned: "2025-09-15" },
+  { id: 8, address: "0x6d4e...90f1", role: "Regulator", dateAssigned: "2025-10-05" },
 ]
 
 export default function RolesPage() {

@@ -18,10 +18,10 @@ export default function ManufacturerDashboard() {
     draftDrugs: 3,
     verificationRate: 92,
     recentDrugs: [
-      { id: "DRG-2023-001", name: "Amoxicillin 500mg", status: "Active", date: "2023-11-10" },
-      { id: "DRG-2023-002", name: "Lisinopril 10mg", status: "Active", date: "2023-11-05" },
-      { id: "DRG-2023-003", name: "Metformin 850mg", status: "Recalled", date: "2023-10-28" },
-      { id: "DRG-2023-004", name: "Atorvastatin 20mg", status: "Draft", date: "2023-11-12" },
+      { id: "DRG-2025-001", name: "Amoxicillin 500mg", status: "Active", date: "2025-11-10" },
+      { id: "DRG-2025-002", name: "Lisinopril 10mg", status: "Active", date: "2025-11-05" },
+      { id: "DRG-2025-003", name: "Metformin 850mg", status: "Recalled", date: "2025-10-28" },
+      { id: "DRG-2025-004", name: "Atorvastatin 20mg", status: "Draft", date: "2025-11-12" },
     ],
   })
 

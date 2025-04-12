@@ -367,7 +367,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="text-slate-500 text-sm">© 2023 DrugLedger. All rights reserved.</div>
+          <div className="text-slate-500 text-sm">© 2025 DrugLedger. All rights reserved.</div>
         </div>
       </footer>
     </div>

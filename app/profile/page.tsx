@@ -60,7 +60,7 @@ export default function ProfilePage() {
     },
     security: {
       twoFactor: false,
-      passwordLastChanged: "2023-09-15",
+      passwordLastChanged: "2025-09-15",
     },
   })
 
@@ -486,7 +486,7 @@ export default function ProfilePage() {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-white">{t("newShipmentAssigned")}</p>
-                      <p className="text-xs text-slate-400">{t("shipmentAssignedMessage", { id: "SHP-2023-007" })}</p>
+                      <p className="text-xs text-slate-400">{t("shipmentAssignedMessage", { id: "SHP-2025-007" })}</p>
                       <p className="text-xs text-slate-500 mt-1">{t("hoursAgo", { hours: 2 })}</p>
                     </div>
                   </div>
@@ -497,7 +497,7 @@ export default function ProfilePage() {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-white">{t("shipmentDelivered")}</p>
-                      <p className="text-xs text-slate-400">{t("shipmentDeliveredMessage", { id: "SHP-2023-002" })}</p>
+                      <p className="text-xs text-slate-400">{t("shipmentDeliveredMessage", { id: "SHP-2025-002" })}</p>
                       <p className="text-xs text-slate-500 mt-1">{t("daysAgo", { days: 1 })}</p>
                     </div>
                   </div>

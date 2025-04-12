@@ -48,7 +48,7 @@ const getRandomValue = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-export default function AdminDashboard() {
+export default function adminDashboard() {
   const router = useRouter()
   const { t } = useLanguage()
   const [timeRange, setTimeRange] = useState<"daily" | "weekly" | "monthly">("daily")
